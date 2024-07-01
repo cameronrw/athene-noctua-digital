@@ -1,0 +1,93 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+console.log(Astro.props);
+const homeUrl = getRelativeLocaleUrl(locale, '/');
+const aboutUrl = getRelativeLocaleUrl(locale, '/about');
+---
+
+<header>
+  <p>Athene noctua digital</p>
+  <nav>
+    <ul>
+      <li>
+        <a
+          href={homeUrl}
+        >Home</a>
+      </li>
+      <li>
+        <a
+          href={aboutUrl}
+        >About</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- Language selector -->
+  <ul class="language-select">
+    <li>
+      <a
+        href="/en"
+        class={locale === 'en' ? 'active' : ''}
+        hreflang="en"
+        lang="en"
+      >
+        English
+      </a>
+    </li>
+    <li>
+      <a
+        href="/el"
+        class={locale === 'el' ? 'active' : ''}
+        hreflang="el"
+        lang="el"
+      >
+        Ελληνικά
+      </a>
+    </li>
+  </ul>
+</header>
+
+<style>
+  header {
+    background-color: var(--color-citron);
+    color: var(--color-english-violet);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  h1 {
+    margin: 0;
+  }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  nav a {
+    color: var(--color-english-violet);
+    text-decoration: none;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  .language-select {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  .language-select a {
+    color: var(--color-english-violet);
+    text-decoration: none;
+  }
+  .language-select a.active {
+    font-weight: bold;
+  }
+  .language-select a:hover {
+    text-decoration: underline;
+  }
+</style>
