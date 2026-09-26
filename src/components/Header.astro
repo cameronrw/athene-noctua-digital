@@ -4,7 +4,6 @@ interface Props {
   locale: string;
 }
 const { locale } = Astro.props;
-console.log(Astro.props);
 const homeUrl = getRelativeLocaleUrl(locale, '/');
 const aboutUrl = getRelativeLocaleUrl(locale, '/about');
 ---
@@ -29,7 +28,7 @@ const aboutUrl = getRelativeLocaleUrl(locale, '/about');
   <ul class="language-select">
     <li>
       <a
-        href="/en"
+        href={getRelativeLocaleUrl('en', '/')}
         class={locale === 'en' ? 'active' : ''}
         hreflang="en"
         lang="en"
@@ -39,7 +38,7 @@ const aboutUrl = getRelativeLocaleUrl(locale, '/about');
     </li>
     <li>
       <a
-        href="/el"
+        href={getRelativeLocaleUrl('el', '/')}
         class={locale === 'el' ? 'active' : ''}
         hreflang="el"
         lang="el"

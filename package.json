@@ -1,7 +1,7 @@
 {
-  "name": "and",
+  "name": "athene-noctua-digital-website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -9,9 +9,22 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+  "engines": {
+    "node": ">=v24.21.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 2%",
+    "not dead"
+  ],
   "dependencies": {
-    "astro": "^4.11.3",
-    "@astrojs/check": "^0.7.0",
-    "typescript": "^5.5.2"
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.3.5"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
   }
 }
