@@ -4,7 +4,7 @@ A bilingual Astro website for English and Greek content.
 
 ## 🚀 About this project
 
-- Built with Astro `^4.11.3`
+- Built with Astro `^7.3.5`
 - Uses Astro's built-in i18n support
 - Default locale is `en` with locale-prefixed routing (`/en/*` and `/el/*`)
 - Root `/` redirects to `/en/`
@@ -59,5 +59,5 @@ npm run preview
 
 ## 📚 Learn more
 
-- Astro docs: https://docs.astro.build
-- Astro i18n docs: https://docs.astro.build/en/guides/internationalization/
+- Astro docs: <https://docs.astro.build>
+- Astro i18n docs: <https://docs.astro.build/en/guides/internationalization/>

@@ -1,8 +1,1 @@
-{
-    "chat.tools.terminal.autoApprove": {
-        "/^if \\[\\[ -d \"\\$HOME/\\.nvm\" \\]\\]; then du -sh \"\\$HOME/\\.nvm\"; \\[\\[ -x \"\\$HOME/\\.nvm/nvm\\.sh\" \\|\\| -f \"\\$HOME/\\.nvm/nvm\\.sh\" \\]\\] && printf 'nvm installation present\\\\n'; else printf 'no ~/\\.nvm directory\\\\n'; fi; zsh -ic 'command -v nvm \\|\\| printf \"nvm not active\\\\n\"'$/": {
-            "approve": true,
-            "matchCommandLine": true
-        }
-    }
-}
+{}

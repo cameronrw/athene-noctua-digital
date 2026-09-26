@@ -1,11 +1,11 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 interface Props {
   locale: string;
 }
 const { locale } = Astro.props;
-const homeUrl = getRelativeLocaleUrl(locale, '/');
-const aboutUrl = getRelativeLocaleUrl(locale, '/about');
+const homeUrl = getRelativeLocaleUrl(locale, "/");
+const aboutUrl = getRelativeLocaleUrl(locale, "/about");
 ---
 
 <header>
@@ -13,14 +13,10 @@ const aboutUrl = getRelativeLocaleUrl(locale, '/about');
   <nav>
     <ul>
       <li>
-        <a
-          href={homeUrl}
-        >Home</a>
+        <a href={homeUrl}>Home</a>
       </li>
       <li>
-        <a
-          href={aboutUrl}
-        >About</a>
+        <a href={aboutUrl}>About</a>
       </li>
     </ul>
   </nav>
@@ -28,8 +24,8 @@ const aboutUrl = getRelativeLocaleUrl(locale, '/about');
   <ul class="language-select">
     <li>
       <a
-        href={getRelativeLocaleUrl('en', '/')}
-        class={locale === 'en' ? 'active' : ''}
+        href={getRelativeLocaleUrl("en", "/")}
+        class={locale === "en" ? "active" : ""}
         hreflang="en"
         lang="en"
       >
@@ -38,8 +34,8 @@ const aboutUrl = getRelativeLocaleUrl(locale, '/about');
     </li>
     <li>
       <a
-        href={getRelativeLocaleUrl('el', '/')}
-        class={locale === 'el' ? 'active' : ''}
+        href={getRelativeLocaleUrl("el", "/")}
+        class={locale === "el" ? "active" : ""}
         hreflang="el"
         lang="el"
       >

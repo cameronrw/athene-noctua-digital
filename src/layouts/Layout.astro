@@ -1,8 +1,8 @@
 ---
-import Header from '../components/Header.astro';
+import Header from "../components/Header.astro";
 interface Props {
-	title: string;
-	locale: string;
+  title: string;
+  locale: string;
 }
 
 const { title, locale } = Astro.props;
@@ -10,42 +10,42 @@ const { title, locale } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Athene noctua digital" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<Header locale={locale} />
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Athene noctua digital" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header locale={locale} />
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--color-citron: #BBBE64;
-		--color-beige: #EAF0CE;
-		--color-silver: #C0C5C1;
-		--color-slate-grey: #7D8491;
-		--color-english-violet: #443850;
-		--color-white: #FFFFFF;
-	}
-	html {
-		background-color: var(--color-english-violet);
-		color: var(--color-beige);
-		font-family: system-ui, sans-serif;
-	}
-	html a {
-		color: var(--color-white);
-		text-decoration: none;
-	}
-	html a:hover {
-		text-decoration: underline;
-	}
-	body {
-		margin: 0;
-		padding: 0;
-	}
+  :root {
+    --color-citron: #bbbe64;
+    --color-beige: #eaf0ce;
+    --color-silver: #c0c5c1;
+    --color-slate-grey: #7d8491;
+    --color-english-violet: #443850;
+    --color-white: #ffffff;
+  }
+  html {
+    background-color: var(--color-english-violet);
+    color: var(--color-beige);
+    font-family: system-ui, sans-serif;
+  }
+  html a {
+    color: var(--color-white);
+    text-decoration: none;
+  }
+  html a:hover {
+    text-decoration: underline;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
 </style>
