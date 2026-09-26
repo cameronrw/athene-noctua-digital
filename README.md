@@ -1,54 +1,63 @@
-# Astro Starter Kit: Basics
+# Athene Noctua Digital
 
-```sh
-npm create astro@latest -- --template basics
-```
+A bilingual Astro website for English and Greek content.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🚀 About this project
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Built with Astro `^4.11.3`
+- Uses Astro's built-in i18n support
+- Default locale is `en` with locale-prefixed routing (`/en/*` and `/el/*`)
+- Root `/` redirects to `/en/`
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 📁 Project structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
+├── public/              Static assets
 ├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
+│   ├── components/      Reusable UI components
+│   │   └── Header.astro
+│   ├── layouts/         Shared page layout
 │   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
+│   ├── content/         Localized markdown content
+│   │   ├── en/
+│   │   └── el/
+│   └── pages/           Localized pages
+│       ├── en/
+│       └── el/
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🌐 Localization
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- English pages live under `src/pages/en/`
+- Greek pages live under `src/pages/el/`
+- The header uses `getRelativeLocaleUrl` from `astro:i18n` to generate locale-aware links
+- Each page passes `locale` into `Layout.astro` so the site can render the correct language and navigation state
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🚧 Scripts
 
-## 🧞 Commands
+Run these commands from the project root:
 
-All commands are run from the root of the project, from a terminal:
+```sh
+npm install
+npm run dev
+npm run build
+npm run preview
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- `npm install` installs dependencies
+- `npm run dev` starts the Astro development server
+- `npm run build` runs `astro check` and builds the production site
+- `npm run preview` previews the built site locally
 
-## 👀 Want to learn more?
+## 🔧 Notes
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `astro.config.mjs` configures `i18n` with `defaultLocale: "en"` and `locales: ["en", "el"]`
+- Static assets should go in `public/`
+- Add new localized pages by creating matching files in both `src/pages/en/` and `src/pages/el/`
+
+## 📚 Learn more
+
+- Astro docs: https://docs.astro.build
+- Astro i18n docs: https://docs.astro.build/en/guides/internationalization/

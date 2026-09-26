@@ -1,3 +1,3 @@
-We are a digital service provider located in Greece.
+Είμαστε ένας πάροχος ψηφιακών υπηρεσιών με έδρα την Ελλάδα.
 
-Looking for business details? Please see [About](/el/about).
+Αναζητάτε στοιχεία της επιχείρησής μας; Δείτε τη σελίδα [Σχετικά με εμάς](/el/about).
