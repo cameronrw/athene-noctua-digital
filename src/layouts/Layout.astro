@@ -1,51 +1,83 @@
 ---
-import Header from '../components/Header.astro';
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import { Font } from "astro:assets";
+
 interface Props {
-	title: string;
-	locale: string;
+  title: string;
+  locale: string;
 }
 
 const { title, locale } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Athene noctua digital" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<Header locale={locale} />
-		<slot />
-	</body>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Athene Noctua Digital" />
+    <meta name="viewport" content="width=device-width" />
+    <script is:inline>
+      let theme;
+      try {
+        theme = localStorage.getItem("theme");
+      } catch {
+        theme = null;
+      }
+      if (theme === "light" || theme === "dark") {
+        document.documentElement.dataset.theme = theme;
+      }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-outfit" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header locale={locale} />
+    <slot />
+    <Footer locale={locale} />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--color-citron: #BBBE64;
-		--color-beige: #EAF0CE;
-		--color-silver: #C0C5C1;
-		--color-slate-grey: #7D8491;
-		--color-english-violet: #443850;
-		--color-white: #FFFFFF;
-	}
-	html {
-		background-color: var(--color-english-violet);
-		color: var(--color-beige);
-		font-family: system-ui, sans-serif;
-	}
-	html a {
-		color: var(--color-white);
-		text-decoration: none;
-	}
-	html a:hover {
-		text-decoration: underline;
-	}
-	body {
-		margin: 0;
-		padding: 0;
-	}
+  :root {
+    --color-lemon-lime: #e2e800;
+    color-scheme: light dark;
+    --color-background: light-dark(#ffffff, #141414);
+    --color-text: light-dark(#252525, #d6d6d6);
+    --color-link: light-dark(#141414, #ffffff);
+    --color-muted: light-dark(#595959, #a8a8a8);
+    --color-border: light-dark(#c4c4c4, #444444);
+    --color-accent-link: light-dark(#465700, #e2e800);
+    --color-on-accent: #141414;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+  html {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-outfit), system-ui, sans-serif;
+  }
+  html a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+  html a:hover {
+    text-decoration: underline;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+  }
+  main {
+    flex: 1;
+  }
 </style>

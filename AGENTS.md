@@ -10,11 +10,11 @@ This is a bilingual Astro website (English/Greek) using Astro's native i18n.
 
 ## Architecture
 
-- Multilingual routing: /en/* and /el/* 
-- Pages in src/pages/en/ and src/pages/el/
-- Content in src/content/en/ and src/content/el/
-- Shared layout: src/layouts/Layout.astro
-- Components: src/components/
+- Multilingual routing: `/en/*` and `/el/*`
+- Pages in `src/pages/en/` and `src/pages/el/`
+- Content in `src/content/en/` and `src/content/el/`
+- Shared layout: `src/layouts/Layout.astro`
+- Components: `src/components/`
 
 ## Conventions
 

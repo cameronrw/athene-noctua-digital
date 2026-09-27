@@ -1,92 +1,216 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getTranslations, languages, navigationItems } from "@i18n/ui";
 interface Props {
   locale: string;
 }
 const { locale } = Astro.props;
-const homeUrl = getRelativeLocaleUrl(locale, '/');
-const aboutUrl = getRelativeLocaleUrl(locale, '/about');
+const t = getTranslations(locale);
+const localePrefix = `/${locale}`;
+const currentPage = Astro.url.pathname.startsWith(`${localePrefix}/`)
+  ? Astro.url.pathname.slice(localePrefix.length) || "/"
+  : Astro.url.pathname;
+const normalizePath = (path: string) => path.replace(/\/$/, "") || "/";
+const currentPath = normalizePath(Astro.url.pathname);
+const navItems = navigationItems.map(({ path, label }) => {
+  const href = getRelativeLocaleUrl(locale, path);
+  return {
+    href,
+    label: t[label],
+    isActive: currentPath === normalizePath(href),
+  };
+});
 ---
 
 <header>
-  <p>Athene noctua digital</p>
+  <p class="brand">{t.brand}</p>
   <nav>
     <ul>
-      <li>
-        <a
-          href={homeUrl}
-        >Home</a>
-      </li>
-      <li>
-        <a
-          href={aboutUrl}
-        >About</a>
-      </li>
+      {navItems.map(({ href, label, isActive }) => (
+        <li>
+          <a
+            href={href}
+            class={isActive ? "active" : undefined}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
-  <!-- Language selector -->
-  <ul class="language-select">
-    <li>
-      <a
-        href={getRelativeLocaleUrl('en', '/')}
-        class={locale === 'en' ? 'active' : ''}
-        hreflang="en"
-        lang="en"
+  <div class="header-controls">
+    <ul class="language-select">
+      {languages.map(({ locale: languageLocale, name, flag }) => (
+        <li>
+          <a
+            href={getRelativeLocaleUrl(languageLocale, currentPage)}
+            class={locale === languageLocale ? "active" : ""}
+            hreflang={languageLocale}
+            lang={languageLocale}
+          >
+            <span aria-hidden="true">{flag}</span>
+            <span>{name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <label class="theme-control">
+      <span
+        data-theme-label
+        data-dark-label={t.darkMode}
+        data-light-label={t.lightMode}
       >
-        English
-      </a>
-    </li>
-    <li>
-      <a
-        href={getRelativeLocaleUrl('el', '/')}
-        class={locale === 'el' ? 'active' : ''}
-        hreflang="el"
-        lang="el"
-      >
-        Ελληνικά
-      </a>
-    </li>
-  </ul>
+        {t.darkMode}
+      </span>
+      <input type="checkbox" role="switch" data-theme-toggle />
+    </label>
+  </div>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLInputElement>(
+    "[data-theme-toggle]",
+  );
+  const label = document.querySelector<HTMLElement>("[data-theme-label]");
+  if (toggle) {
+    const preference = window.matchMedia("(prefers-color-scheme: dark)");
+    const syncToggle = () => {
+      toggle.checked =
+        document.documentElement.dataset.theme === "dark" ||
+        (!document.documentElement.dataset.theme && preference.matches);
+      if (label) {
+        label.textContent = toggle.checked
+          ? (label.dataset.darkLabel ?? "")
+          : (label.dataset.lightLabel ?? "");
+      }
+    };
+
+    syncToggle();
+    preference.addEventListener("change", syncToggle);
+    toggle.addEventListener("change", () => {
+      const theme = toggle.checked ? "dark" : "light";
+      document.documentElement.dataset.theme = theme;
+      syncToggle();
+      try {
+        localStorage.setItem("theme", theme);
+      } catch {
+        return;
+      }
+    });
+  }
+</script>
 
 <style>
   header {
-    background-color: var(--color-citron);
-    color: var(--color-english-violet);
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-  h1 {
-    margin: 0;
-  }
-  nav ul {
+    align-items: center;
+    background-color: var(--color-lemon-lime);
+    color: var(--color-on-accent);
     display: flex;
     gap: 1rem;
-    list-style: none;
-    padding: 0;
+    justify-content: space-between;
+    padding: 1rem;
+
+    @media (max-width: 36rem) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
-  nav a {
-    color: var(--color-english-violet);
-    text-decoration: none;
+  .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
   }
-  nav a:hover {
-    text-decoration: underline;
+  .header-controls {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: 36rem) {
+      align-items: flex-start;
+    }
+  }
+  nav {
+    ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: var(--color-on-accent);
+      text-decoration: none;
+      &.active {
+        font-weight: bold;
+      }
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
   }
   .language-select {
     display: flex;
     gap: 1rem;
     list-style: none;
+    margin: 0;
     padding: 0;
+    a {
+      align-items: center;
+      color: var(--color-on-accent);
+      display: flex;
+      gap: 0.5rem;
+      text-decoration: none;
+      &.active {
+        font-weight: bold;
+      }
+      &:hover,
+      &:focus {
+        span:last-child {
+          text-decoration: underline;
+        }
+      }
+    }
   }
-  .language-select a {
-    color: var(--color-english-violet);
-    text-decoration: none;
-  }
-  .language-select a.active {
-    font-weight: bold;
-  }
-  .language-select a:hover {
-    text-decoration: underline;
+  .theme-control {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.5rem;
+    white-space: nowrap;
+    cursor: pointer;
+
+    input {
+      appearance: none;
+      background: var(--color-on-accent);
+      border: 2px solid var(--color-on-accent);
+      border-radius: 1rem;
+      cursor: pointer;
+      height: 1.5rem;
+      margin: 0;
+      position: relative;
+      width: 2.75rem;
+
+      &::before {
+        background: var(--color-lemon-lime);
+        border-radius: 50%;
+        content: "";
+        height: 1rem;
+        left: 0.125rem;
+        position: absolute;
+        top: 0.125rem;
+        transition: transform 150ms ease;
+        width: 1rem;
+      }
+      &:checked::before {
+        transform: translateX(1.2rem);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--color-on-accent);
+        outline-offset: 3px;
+      }
+    }
   }
 </style>

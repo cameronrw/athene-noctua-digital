@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "check": "astro check",
+    "build": "npm run check && astro build",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "precommit": "lint-staged",
+    "prepare": "husky",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -25,6 +31,20 @@
     "esbuild@0.28.1": true
   },
   "devDependencies": {
-    "typescript": "^6.0.3"
+    "eslint": "^10.11.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1"
+  },
+  "lint-staged": {
+    "*.{astro,js,ts,mjs,mts,cjs,cts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html,json,md,yaml,yml}": "prettier --write"
   }
 }
