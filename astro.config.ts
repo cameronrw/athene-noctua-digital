@@ -16,8 +16,13 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: "Outfit",
-      cssVariable: "--font-outfit",
+      name: "Inter",
+      cssVariable: "--font-inter",
+    },
+    {
+      provider: fontProviders.google(),
+      name: "Lora",
+      cssVariable: "--font-lora",
     },
   ],
 });

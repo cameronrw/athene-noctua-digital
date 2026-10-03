@@ -7,7 +7,9 @@
     "start": "astro dev",
     "check": "astro check",
     "build": "npm run check && astro build",
-    "lint": "eslint .",
+    "lint": "npm run lint:js && npm run lint:styles",
+    "lint:js": "eslint .",
+    "lint:styles": "stylelint \"src/**/*.{astro,css}\"",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "precommit": "lint-staged",
@@ -31,20 +33,32 @@
     "esbuild@0.28.1": true
   },
   "devDependencies": {
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-astro": "^3.2.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "3.9.9",
     "prettier-plugin-astro": "1.1.0",
+    "stylelint": "^17.16.0",
+    "stylelint-config-html": "^2.0.0",
+    "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.70.1"
+    "typescript-eslint": "^8.71.0"
   },
   "lint-staged": {
-    "*.{astro,js,ts,mjs,mts,cjs,cts}": [
+    "*.astro": [
+      "eslint --fix",
+      "stylelint",
+      "prettier --write"
+    ],
+    "*.{js,ts,mjs,mts,cjs,cts}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{css,html,json,md,yaml,yml}": "prettier --write"
+    "*.css": [
+      "stylelint",
+      "prettier --write"
+    ],
+    "*.{html,json,md,yaml,yml}": "prettier --write"
   }
 }

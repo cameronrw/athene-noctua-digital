@@ -1,0 +1,37 @@
+---
+import { getTranslations } from "@i18n/ui";
+import logoSvg from "../../public/athene-noctua-digital-logo.svg?raw";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<div class="brand">
+  <span class="brand-logo" aria-hidden="true" set:html={logoSvg} />
+  <span>{t.brand}</span>
+</div>
+
+<style>
+  .brand {
+    align-items: center;
+    display: flex;
+    font-size: 1rem;
+    font-weight: normal;
+    gap: 1rem;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .brand-logo {
+    --logo-accent: var(--color-lemon-lime);
+
+    color: var(--color-gunmetal);
+    display: block;
+    height: 3rem;
+    width: 2rem;
+  }
+</style>

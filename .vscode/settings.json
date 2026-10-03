@@ -1,1 +1,6 @@
-{}
+{
+  "stylelint.validate": ["astro", "css"],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
+}

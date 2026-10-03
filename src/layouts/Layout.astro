@@ -30,7 +30,8 @@ const { title, locale } = Astro.props;
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <Font cssVariable="--font-outfit" />
+    <Font cssVariable="--font-inter" />
+    <Font cssVariable="--font-lora" />
     <title>{title}</title>
   </head>
   <body>
@@ -41,34 +42,71 @@ const { title, locale } = Astro.props;
 </html>
 <style is:global>
   :root {
+    --site-content-max: 100%;
+    --site-content-gutter: 1rem;
     --color-lemon-lime: #e2e800;
+    --color-beige: #eaf0ce;
+    --color-silver: #a8a8a8;
+    --color-slate-grey: #7d8491;
+    --color-white: #fff;
+    --color-onyx: #141414;
+    --color-carbon-black: #252525;
+    --color-dust-grey: #d6d6d6;
+    --color-charcoal: #595959;
+    --color-border-light: #c4c4c4;
+    --color-graphite: #343434;
+    --color-gunmetal: #444;
+    --color-olive-leaf: #465700;
+    --color-background: light-dark(var(--color-white), var(--color-onyx));
+    --color-text: light-dark(var(--color-carbon-black), var(--color-dust-grey));
+    --color-link: light-dark(var(--color-onyx), var(--color-white));
+    --color-muted: light-dark(var(--color-charcoal), var(--color-silver));
+    --color-border: light-dark(
+      var(--color-border-light),
+      var(--color-gunmetal)
+    );
+    --color-accent-link: light-dark(
+      var(--color-olive-leaf),
+      var(--color-lemon-lime)
+    );
+    --color-on-accent: var(--color-onyx);
+
     color-scheme: light dark;
-    --color-background: light-dark(#ffffff, #141414);
-    --color-text: light-dark(#252525, #d6d6d6);
-    --color-link: light-dark(#141414, #ffffff);
-    --color-muted: light-dark(#595959, #a8a8a8);
-    --color-border: light-dark(#c4c4c4, #444444);
-    --color-accent-link: light-dark(#465700, #e2e800);
-    --color-on-accent: #141414;
+
+    &[data-theme="light"] {
+      color-scheme: light;
+    }
+
+    &[data-theme="dark"] {
+      color-scheme: dark;
+    }
+
+    @media (width >= 48rem) {
+      --site-content-max: 64rem;
+      --site-content-gutter: 2rem;
+    }
+
+    @media (width >= 80rem) {
+      --site-content-max: 72rem;
+      --site-content-gutter: 3rem;
+    }
   }
-  :root[data-theme="light"] {
-    color-scheme: light;
-  }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-  }
+
   html {
     background-color: var(--color-background);
     color: var(--color-text);
-    font-family: var(--font-outfit), system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
+
+    a {
+      color: var(--color-link);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
-  html a {
-    color: var(--color-link);
-    text-decoration: none;
-  }
-  html a:hover {
-    text-decoration: underline;
-  }
+
   body {
     display: flex;
     flex-direction: column;
@@ -77,6 +115,30 @@ const { title, locale } = Astro.props;
     margin: 0;
     padding: 0;
   }
+
+  .site-grid {
+    display: grid;
+    grid-template-columns:
+      [full-start] minmax(var(--site-content-gutter), 1fr)
+      [content-start] minmax(0, var(--site-content-max))
+      [content-end] minmax(var(--site-content-gutter), 1fr)
+      [full-end];
+
+    > * {
+      grid-column: content-start / content-end;
+    }
+  }
+
+  .site-grid-full-bleed {
+    display: grid;
+    grid-column: full-start / full-end;
+    grid-template-columns: subgrid;
+  }
+
+  .site-grid-full-bleed > * {
+    grid-column: content-start / content-end;
+  }
+
   main {
     flex: 1;
   }

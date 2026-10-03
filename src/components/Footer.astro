@@ -11,7 +11,7 @@ const t = getTranslations(locale);
 const year = new Date().getFullYear();
 ---
 
-<footer>
+<footer class="site-grid">
   <div class="footer-main">
     <div class="identity">
       <a class="brand" href={getRelativeLocaleUrl(locale, "/")}>
@@ -41,26 +41,29 @@ const year = new Date().getFullYear();
   footer {
     border-top: 1px solid var(--color-border);
     color: var(--color-text);
-    padding: 1rem;
   }
+
   .footer-main,
   .footer-bottom {
     display: flex;
     justify-content: space-between;
     gap: 1.5rem;
   }
+
   .footer-main {
     align-items: flex-start;
     padding-bottom: 2rem;
 
-    @media (max-width: 36rem) {
+    @media (width <= 36rem) {
       flex-direction: column;
     }
   }
+
   .brand {
     color: var(--color-link);
-    font-weight: 600;
+    font-weight: normal;
     text-decoration: none;
+
     &:hover,
     &:focus-visible {
       color: var(--color-accent-link);
@@ -68,10 +71,12 @@ const year = new Date().getFullYear();
       text-underline-offset: 0.2em;
     }
   }
+
   .identity p {
     color: var(--color-muted);
     margin: 0.5rem 0 0;
   }
+
   nav {
     ul {
       display: flex;
@@ -81,8 +86,10 @@ const year = new Date().getFullYear();
       margin: 0;
       padding: 0;
     }
+
     a {
       text-decoration: none;
+
       &:hover,
       &:focus-visible {
         color: var(--color-accent-link);
@@ -91,6 +98,7 @@ const year = new Date().getFullYear();
       }
     }
   }
+
   .footer-bottom {
     border-top: 1px solid var(--color-border);
     color: var(--color-muted);

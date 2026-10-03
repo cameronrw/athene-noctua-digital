@@ -1,0 +1,59 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { languages } from "@i18n/ui";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const localePrefix = `/${locale}`;
+const currentPage = Astro.url.pathname.startsWith(`${localePrefix}/`)
+  ? Astro.url.pathname.slice(localePrefix.length) || "/"
+  : Astro.url.pathname;
+---
+
+<ul class="language-select">
+  {languages.map(({ locale: languageLocale, name, flag }) => (
+    <li>
+      <a
+        href={getRelativeLocaleUrl(languageLocale, currentPage)}
+        class={locale === languageLocale ? "active" : ""}
+        hreflang={languageLocale}
+        lang={languageLocale}
+      >
+        <span aria-hidden="true">{flag}</span>
+        <span>{name}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .language-select {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    a {
+      align-items: center;
+      color: var(--color-on-accent);
+      display: flex;
+      gap: 0.5rem;
+      text-decoration: none;
+
+      &.active {
+        font-weight: normal;
+      }
+
+      &:hover,
+      &:focus {
+        span:last-child {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+</style>

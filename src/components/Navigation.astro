@@ -1,0 +1,63 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getTranslations, navigationItems } from "@i18n/ui";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const normalizePath = (path: string) => path.replace(/\/$/, "") || "/";
+const currentPath = normalizePath(Astro.url.pathname);
+const navItems = navigationItems.map(({ path, label }) => {
+  const href = getRelativeLocaleUrl(locale, path);
+  return {
+    href,
+    label: t[label],
+    isActive: currentPath === normalizePath(href),
+  };
+});
+---
+
+<nav>
+  <ul>
+    {navItems.map(({ href, label, isActive }) => (
+      <li>
+        <a
+          href={href}
+          class={isActive ? "active" : undefined}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  nav {
+    ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: var(--color-on-accent);
+      text-decoration: none;
+
+      &.active {
+        font-weight: normal;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>
