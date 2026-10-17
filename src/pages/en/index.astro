@@ -1,17 +1,12 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import HomeHero from "@components/HomeHero.astro";
 import { Content } from "@content/en/index.md";
 ---
 
 <Layout title="Athene Noctua Digital" locale="en">
   <main class="site-grid">
-    <h1 class="heading">Athene Noctua Digital</h1>
+    <HomeHero locale="en" />
     <Content />
   </main>
 </Layout>
-
-<style>
-  .heading {
-    font-size: 2rem;
-  }
-</style>

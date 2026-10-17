@@ -1,6 +1,9 @@
 export const translations = {
   en: {
     brand: "Athene Noctua Digital",
+    homeHeroHeadline: "Focused",
+    homeHeroHeadlineEmphasis: "on the details that matter.",
+    homeHeroDescription: "We focus on the details that make a difference.",
     home: "Home",
     about: "About",
     darkMode: "Dark mode",
@@ -11,6 +14,9 @@ export const translations = {
   },
   el: {
     brand: "Athene Noctua Digital",
+    homeHeroHeadline: "Εστιάζουμε στις λεπτομέρειες",
+    homeHeroHeadlineEmphasis: "που έχουν σημασία.",
+    homeHeroDescription: "We focus on the details that make a difference.",
     home: "Αρχική",
     about: "Σχετικά με εμάς",
     darkMode: "Σκοτεινή λειτουργία",
@@ -26,10 +32,7 @@ export const languages = [
   { locale: "el", name: "Ελληνικά", flag: "🇬🇷" },
 ] as const;
 
-export const navigationItems = [
-  { path: "/", label: "home" },
-  { path: "/about", label: "about" },
-] as const;
+export const navigationItems = [{ path: "/about", label: "about" }] as const;
 
 export function getTranslations(locale: string) {
   return translations[locale as keyof typeof translations] ?? translations.en;
